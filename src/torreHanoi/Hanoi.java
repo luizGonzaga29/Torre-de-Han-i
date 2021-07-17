@@ -138,8 +138,8 @@ public class Hanoi {
 
 	//garantir que a quantidade de discos seja entre 2 a 9
 	public static int verificarDiscos(int discos, Scanner sc) {
-		while(discos < 2 || discos > 9) {
-			System.out.println("Quantidade de discos deve ser entre 2 a 9!");
+		while(discos < 3 || discos > 12) {
+			System.out.println("Quantidade de discos deve ser entre 3 a 12!");
 			discos = sc.nextInt();
 		}
 		return discos;
@@ -147,6 +147,8 @@ public class Hanoi {
 	
 	public static void main(String[] args) {
 
+		int disco = 0;
+		String coluna = "";
 		while (controle) {
 			try {
 				Scanner entry = new Scanner(System.in);
@@ -157,12 +159,21 @@ public class Hanoi {
 						System.out.println("==================================================");
 						System.out.println("movimento " + contador);
 						System.out.print("Informe o disco: ");
-						int disco = entry.nextInt();
-						System.out.print("Informe a coluna: ");
-						String coluna = entry.next();
-						System.out.println("==================================================");
-						printMatriz(updateMatriz(disco, coluna, matriz));
-						contador++;
+						entry.nextLine();
+							try {
+								 disco = entry.nextInt();
+								 System.out.print("Informe a coluna: ");
+								 coluna = entry.next();
+								 System.out.println("==================================================");
+								 printMatriz(updateMatriz(disco, coluna, matriz));
+								 contador++;
+								 
+							}catch (InputMismatchException e) {
+								System.out.println("Por favor digite apenas números inteiros!");
+								printMatriz(updateMatriz(disco, coluna, matriz));
+								contador++;
+							}
+						
 					}
 					
 					if(!controle) {
@@ -170,7 +181,7 @@ public class Hanoi {
 						entry.close();
 					}
 			}catch (InputMismatchException e) {
-				System.out.println("Por favor digite apenas números!");
+				System.out.println("Por favor digite apenas números inteiros!");
 			}catch (Exception e) {
 				System.out.println("Erro inesperado!");
 			}
